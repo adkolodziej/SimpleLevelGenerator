@@ -14,6 +14,8 @@ public class DataController : MonoBehaviour
     {
         loader = new DataLoader();
         loader.LoadData(graphsPath, graphList);
+        var graph = GetSmallestGraph();
+        int x = 0;
     }
 
     public Graph GetRandomGraph()
@@ -21,7 +23,7 @@ public class DataController : MonoBehaviour
         return graphList.GetRandomGraph();
     }
 
-    public Graph GetSmallestGraph()
+    public (Graph, int) GetSmallestGraph()
     {
         return graphList.GetSmallestGraph();
     }

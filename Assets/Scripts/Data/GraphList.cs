@@ -14,21 +14,21 @@ public class GraphList : MonoBehaviour
         return graphs[Random.Range(0, graphs.Count)];
     }
 
-    public Graph GetSmallestGraph()
+    public (Graph, int) GetSmallestGraph()
     {
-        if (graphs == null)
+        if (graphs.Count < 1)
         {
-            return null;
+            return (null, 0);
         }
         var smallestGraph = graphs[0];
         foreach (var graph in graphs)
         {
-            if (graph.Nodes.Count() < smallestGraph.Nodes.Count())
+            if (GetGraphNodeCount(graph) < GetGraphNodeCount(smallestGraph))
             {
                 smallestGraph = graph;
             }
         }
-        return smallestGraph;
+        return (smallestGraph, GetGraphNodeCount(smallestGraph));
     }
 
     public Graph GetBiggestGraph()
@@ -40,7 +40,7 @@ public class GraphList : MonoBehaviour
         var biggestGraph = graphs[0];
         foreach (var graph in graphs)
         {
-            if (graph.Nodes.Count() > biggestGraph.Nodes.Count())
+            if (GetGraphNodeCount(graph) > GetGraphNodeCount(biggestGraph))
             {
                 biggestGraph = graph;
             }
@@ -50,11 +50,31 @@ public class GraphList : MonoBehaviour
 
     public Graph GetGraphWithNodesCount(int nodesCount)
     {
-        var graph = graphs.Find(x => x.Nodes.Count() == nodesCount);
+        var graph = graphs.Find(x => GetGraphNodeCount(x) == nodesCount);
         if (graph == null)
         {
-            graph = graphs.Find(x => x.Nodes.Count() == nodesCount - 1 || x.Nodes.Count() == nodesCount + 1);
+            graph = graphs.Find(x => GetGraphNodeCount(x) == nodesCount - 1 || GetGraphNodeCount(x) == nodesCount + 1);
         }
         return graph;
+    }
+
+    private int GetGraphNodeCount(Graph graph)
+    {
+        int nodeCount = graph.Nodes[0].nodeId;
+        foreach (var node in graph.Nodes)
+        {
+            if (node.nodeId > nodeCount)
+            {
+                nodeCount = node.nodeId;
+            }
+            foreach (var nId in node.neighbourIds)
+            {
+                if (nId > nodeCount)
+                {
+                    nodeCount = nId;
+                }
+            }
+        }
+        return nodeCount;
     }
 }

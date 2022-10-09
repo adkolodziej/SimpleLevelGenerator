@@ -16,15 +16,15 @@ public class Graph
 
     public List<Node> Nodes { get { return nodes; } set { nodes = value; } }
 
-    public void CreateGraph(string file)
+    public void CreateGraph(string[] lines)
     {
-        string[] lines = System.IO.File.ReadAllLines(file);
-
         int nodeId;
         int neighbourId;
         string[] text;
-        foreach (string line in lines)
-        {
+        string line;
+        for (int i = 0; i < lines.Length - 2; i++)
+        {            
+            line = lines[i];
             text = line.Split("\t");
             nodeId = Int32.Parse(text[0]);
             neighbourId = Int32.Parse(text[1]);
@@ -46,7 +46,6 @@ public class Graph
                 }
             }
         }
-        int x = 0;
     }
 
     private void CreateNode(int nodeId, int neighbourId)
