@@ -6,6 +6,6 @@ public class LevelGenerator : MonoBehaviour
 {
     [SerializeField]
     private DataController controller;
-
-
+    [SerializeField]
+    private GridGenerator gridGenerator;
 }
