@@ -10,9 +10,6 @@ public class DataLoader
     {
         var files = Directory.GetFiles(dataPath, "*.txt");
 
-        //DirectoryInfo dir = new DirectoryInfo(dataPath);
-        //FileInfo[] info = dir.GetFiles("*.txt");
-
         List<Graph> newGraphs = new List<Graph>();
         Graph graph = new Graph();
         foreach (var file in files)

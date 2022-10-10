@@ -5,4 +5,5 @@ using UnityEngine;
 public class Path : MonoBehaviour
 {
     private int length;
+    private List<Cell> pathCells = new List<Cell>();
 }

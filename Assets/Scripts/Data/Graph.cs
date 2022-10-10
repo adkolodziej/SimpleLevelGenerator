@@ -48,6 +48,28 @@ public class Graph
         }
     }
 
+    public List<Node> GetAllUniqueNodes()
+    {
+        var uniqueNodes = new List<Node>();
+
+        foreach (var node in nodes)
+        {
+            if(!uniqueNodes.Exists(x => x.nodeId == node.nodeId))
+            {
+                var newNode = new Node();
+                newNode.nodeId = node.nodeId;
+                node.neighbourIds.CopyTo(newNode.neighbourIds.ToArray(), 0);
+                uniqueNodes.Add(newNode);
+            }
+            foreach(var neighbourNode in node.neighbourIds)
+            {
+
+            }
+        }
+
+        return uniqueNodes;
+    }
+
     private void CreateNode(int nodeId, int neighbourId)
     {
         Node node = new Node();

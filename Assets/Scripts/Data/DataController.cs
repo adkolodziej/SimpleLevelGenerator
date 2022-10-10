@@ -10,12 +10,10 @@ public class DataController : MonoBehaviour
     private GraphList graphList = new();
     private DataLoader loader;
 
-    private void Start()
+    public void CreateGraphs()
     {
         loader = new DataLoader();
         loader.LoadData(graphsPath, graphList);
-        var graph = GetSmallestGraph();
-        int x = 0;
     }
 
     public Graph GetRandomGraph()

@@ -11,6 +11,9 @@ public class GridGenerator : MonoBehaviour
     [SerializeField]
     private List<Cell> cells = new List<Cell>();
 
+    public int SideSize => sideSize;
+    public List<Cell> Cells => cells;
+
     [ContextMenu("GenerateGrid")]
     private void GenerateGrid()
     {

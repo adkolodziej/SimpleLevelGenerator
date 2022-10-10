@@ -11,6 +11,20 @@ public class Cell : MonoBehaviour
     private int row;
     private int column;
 
+    public CellType CellType
+    {
+        get
+        {
+            return cellType;
+        }
+        set
+        {
+            cellType = value;
+        }
+    }
+    public int Row => row;
+    public int Column => column;
+
     public void SetCell(int row, int column)
     {
         this.row = row;
