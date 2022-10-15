@@ -6,10 +6,18 @@ public class Cell : MonoBehaviour
 {
     [SerializeField]
     private GameObject cube;
-
+    [SerializeField]
+    private Material roomMaterial;
+    [SerializeField]
+    private MeshRenderer renderer;
+    [SerializeField]
     private CellType cellType = CellType.Empty;
+    [SerializeField]
     private int row;
+    [SerializeField]
     private int column;
+
+    private Material defaultMaterial;
 
     public CellType CellType
     {
@@ -29,7 +37,17 @@ public class Cell : MonoBehaviour
     {
         this.row = row;
         this.column = column;
-        transform.position = new Vector3(row, -1, column);
+        transform.position = new Vector3(column, -1, row);
+    }
+
+    public void TurnRoom()
+    {
+        renderer.sharedMaterial = roomMaterial;
+    }
+
+    public void TurnEmpty()
+    {
+        renderer.sharedMaterial = defaultMaterial;
     }
 
     public void HideCell()
@@ -40,5 +58,13 @@ public class Cell : MonoBehaviour
     public void ShowCell()
     {
         cube.gameObject.SetActive(true);
+    }
+
+    private void OnValidate()
+    {
+        if(defaultMaterial == null)
+        {
+            defaultMaterial = renderer.sharedMaterial;
+        }
     }
 }

@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,6 +9,7 @@ public class Graph
     {
         public int nodeId;
         public List<int> neighbourIds = new();
+        public Room room;
     }
 
     private List<Node> nodes = new List<Node>();
@@ -23,7 +23,7 @@ public class Graph
         string[] text;
         string line;
         for (int i = 0; i < lines.Length - 2; i++)
-        {            
+        {
             line = lines[i];
             text = line.Split("\t");
             nodeId = Int32.Parse(text[0]);
@@ -51,19 +51,33 @@ public class Graph
     public List<Node> GetAllUniqueNodes()
     {
         var uniqueNodes = new List<Node>();
+        uniqueNodes.AddRange(nodes);
 
         foreach (var node in nodes)
         {
-            if(!uniqueNodes.Exists(x => x.nodeId == node.nodeId))
+            foreach (var neighbour in node.neighbourIds)
             {
-                var newNode = new Node();
-                newNode.nodeId = node.nodeId;
-                node.neighbourIds.CopyTo(newNode.neighbourIds.ToArray(), 0);
-                uniqueNodes.Add(newNode);
+                if (!uniqueNodes.Exists(x => x.nodeId == neighbour))
+                {
+                    var newN = new Node();
+                    newN.nodeId = neighbour;
+                    newN.neighbourIds.Add(node.nodeId);
+                    uniqueNodes.Add(newN);
+                }
             }
-            foreach(var neighbourNode in node.neighbourIds)
-            {
+        }
 
+        foreach (var uniqueNode in uniqueNodes)
+        {
+            foreach (var node in nodes)
+            {
+                foreach (var neighbour in node.neighbourIds)
+                {
+                    if(neighbour == uniqueNode.nodeId)
+                    {
+                        uniqueNode.neighbourIds.Add(node.nodeId);
+                    }
+                }
             }
         }
 
