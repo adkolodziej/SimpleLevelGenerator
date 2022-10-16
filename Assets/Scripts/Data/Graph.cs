@@ -4,14 +4,6 @@ using UnityEngine;
 
 public class Graph
 {
-    [Serializable]
-    public class Node
-    {
-        public int nodeId;
-        public List<int> neighbourIds = new();
-        public Room room;
-    }
-
     private List<Node> nodes = new List<Node>();
 
     public List<Node> Nodes { get { return nodes; } set { nodes = value; } }

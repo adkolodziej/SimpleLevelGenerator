@@ -9,9 +9,10 @@ public class GraphList : MonoBehaviour
 
     public List<Graph> Graphs { get { return graphs; } set { graphs = value; } }
 
-    public Graph GetRandomGraph()
+    public (Graph, int) GetRandomGraph()
     {
-        return graphs[Random.Range(0, graphs.Count)];
+        var graph = graphs[Random.Range(0, graphs.Count)];
+        return (graph, graph.Nodes.Count);
     }
 
     public (Graph, int) GetSmallestGraph()
@@ -31,11 +32,11 @@ public class GraphList : MonoBehaviour
         return (smallestGraph, GetGraphNodeCount(smallestGraph));
     }
 
-    public Graph GetBiggestGraph()
+    public (Graph, int) GetBiggestGraph()
     {
-        if (graphs == null)
+        if (graphs.Count < 1)
         {
-            return null;
+            return (null, 0);
         }
         var biggestGraph = graphs[0];
         foreach (var graph in graphs)
@@ -45,7 +46,7 @@ public class GraphList : MonoBehaviour
                 biggestGraph = graph;
             }
         }
-        return biggestGraph;
+        return (biggestGraph, GetGraphNodeCount(biggestGraph));
     }
 
     public Graph GetGraphWithNodesCount(int nodesCount)

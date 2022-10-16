@@ -16,7 +16,7 @@ public class DataController : MonoBehaviour
         loader.LoadData(graphsPath, graphList);
     }
 
-    public Graph GetRandomGraph()
+    public (Graph, int) GetRandomGraph()
     {
         return graphList.GetRandomGraph();
     }
@@ -26,7 +26,7 @@ public class DataController : MonoBehaviour
         return graphList.GetSmallestGraph();
     }
 
-    public Graph GetBiggestGraph()
+    public (Graph, int) GetBiggestGraph()
     {
         return graphList.GetBiggestGraph();
     }

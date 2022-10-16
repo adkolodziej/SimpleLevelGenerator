@@ -111,3 +111,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 1
+  doorCoordinates:
+  - X: -1
+    Y: 0
+  - X: -1
+    Y: 1
+  - X: 0
+    Y: 2
+  - X: 1
+    Y: 2
+  - X: 2
+    Y: 0
+  - X: 2
+    Y: 1
+  - X: 0
+    Y: -1
+  - X: 1
+    Y: -1

@@ -25,6 +25,7 @@ public class GridGenerator : MonoBehaviour
                 var cell = go.GetComponent<Cell>();
                 cell.SetCell(i, j);
                 cells.Add(cell);
+                cell.Id = cells.Count - 1;
             }
         }
     }

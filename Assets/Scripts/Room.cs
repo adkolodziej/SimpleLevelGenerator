@@ -1,20 +1,38 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Room : MonoBehaviour
 {
+    [Serializable]
+    private struct DoorCoordinates
+    {
+        public int X;
+        public int Y;
+    }
+
     [SerializeField]
     private RoomType type;
+    [SerializeField]
+    private List<DoorCoordinates> doorCoordinates;
 
-    private List<Cell> doorCells;
+    private List<(Cell cell, bool occupied)> doorCells = new();
     private Dictionary<Room, Path> connectedRooms = new();
     private int roomSideSize;
     private int retryCounter;
 
+    public Room(Room room)
+    {
+        this.type = room.type;
+        this.doorCoordinates = room.doorCoordinates;
+        this.roomSideSize = room.roomSideSize;
+        this.retryCounter = room.retryCounter;
+    }
+
     public void CreateRoomOnGrid(List<Cell> cells, int gridSideSize)
     {
-        int randomX = Random.Range(roomSideSize, gridSideSize - roomSideSize);
-        int randomY = Random.Range(roomSideSize, gridSideSize - roomSideSize);
+        int randomX = UnityEngine.Random.Range(roomSideSize + 2, gridSideSize - roomSideSize - 2);
+        int randomY = UnityEngine.Random.Range(roomSideSize + 2, gridSideSize - roomSideSize - 2);
         if (IsCellValid(cells, randomX, randomY))
         {
             CreateRoom(cells, randomX, randomY);
@@ -30,26 +48,33 @@ public class Room : MonoBehaviour
         }
     }
 
+    public int GetFirstFreeDoor()
+    {
+        for (int i = 0; i < doorCells.Count; i++)
+        {
+            if (doorCells[i].occupied == false)
+            {
+                doorCells[i] = new(doorCells[i].cell, true);
+                return doorCells[i].cell.Id;
+            }
+        }
+        return -1;
+    }
+
     private bool IsCellValid(List<Cell> cells, int x, int y)
     {
-        bool valid = false;
-        for (int i = x - 1; i < x + roomSideSize + 1; i++)
+        for (int i = x - 2; i < x + roomSideSize + 2; i++)
         {
-            for (int j = y - 1; j < y + roomSideSize + 1; j++)
+            for (int j = y - 2; j < y + roomSideSize + 2; j++)
             {
-                var cell = cells.Find(x => x.Row == i && x.Column == j);
-                if (cell.CellType == CellType.Empty)
+                var cell = cells.Find(x => x.X == i && x.Y == j);
+                if (cell.CellType != CellType.Empty)
                 {
-                    valid = true;
-                }
-                else
-                {
-                    valid = false;
-                    break;
+                    return false;
                 }
             }
         }
-        return valid;
+        return true;
     }
 
     private void CreateRoom(List<Cell> cells, int x, int y)
@@ -58,9 +83,25 @@ public class Room : MonoBehaviour
         {
             for (int j = y; j < y + roomSideSize; j++)
             {
-                var cell = cells.Find(x => x.Row == i && x.Column == j);
+                var cell = cells.Find(x => x.X == i && x.Y == j);
                 cell.CellType = CellType.Room;
                 cell.TurnRoom();
+            }
+        }
+
+        CreateDoors(cells, x, y);
+    }
+
+    private void CreateDoors(List<Cell> cells, int x, int y)
+    {
+        foreach (var doorCoord in doorCoordinates)
+        {
+            var cell = cells.Find(c => c.X == doorCoord.X + x && c.Y == doorCoord.Y + y);
+            if (cell.CellType == CellType.Empty)
+            {
+                cell.CellType = CellType.DoorBlock;
+                cell.TurnDoor();
+                doorCells.Add((cell, false));
             }
         }
     }

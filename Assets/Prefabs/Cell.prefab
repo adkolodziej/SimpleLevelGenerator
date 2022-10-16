@@ -47,7 +47,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cube: {fileID: 4502785928684564867}
   roomMaterial: {fileID: 2100000, guid: 7fd0c4b37079c8b4e9350e61f20f7b90, type: 2}
+  doorMaterial: {fileID: 2100000, guid: 06ac304decd395e45bed1c419107fdd8, type: 2}
+  pathMaterial: {fileID: 2100000, guid: af7f746457ab9504fb8113b6bdb7d0c6, type: 2}
   renderer: {fileID: 438048962907133958}
+  cellType: 0
+  x: 0
+  y: 0
+  id: 0
 --- !u!1 &4502785928684564867
 GameObject:
   m_ObjectHideFlags: 0

@@ -9,13 +9,19 @@ public class Cell : MonoBehaviour
     [SerializeField]
     private Material roomMaterial;
     [SerializeField]
+    private Material doorMaterial;
+    [SerializeField]
+    private Material pathMaterial;
+    [SerializeField]
     private MeshRenderer renderer;
     [SerializeField]
     private CellType cellType = CellType.Empty;
     [SerializeField]
-    private int row;
+    private int x;
     [SerializeField]
-    private int column;
+    private int y;
+    [SerializeField]
+    private int id;
 
     private Material defaultMaterial;
 
@@ -30,14 +36,15 @@ public class Cell : MonoBehaviour
             cellType = value;
         }
     }
-    public int Row => row;
-    public int Column => column;
+    public int X => x;
+    public int Y => y;
+    public int Id { get { return id; } set { id = value; } }
 
-    public void SetCell(int row, int column)
+    public void SetCell(int x, int y)
     {
-        this.row = row;
-        this.column = column;
-        transform.position = new Vector3(column, -1, row);
+        this.x = x;
+        this.y = y;
+        transform.position = new Vector3(x, -1, y);
     }
 
     public void TurnRoom()
@@ -48,6 +55,16 @@ public class Cell : MonoBehaviour
     public void TurnEmpty()
     {
         renderer.sharedMaterial = defaultMaterial;
+    }
+
+    public void TurnDoor()
+    {
+        renderer.sharedMaterial = doorMaterial;
+    }
+
+    public void TurnPath()
+    {
+        renderer.sharedMaterial = pathMaterial;
     }
 
     public void HideCell()
@@ -62,7 +79,7 @@ public class Cell : MonoBehaviour
 
     private void OnValidate()
     {
-        if(defaultMaterial == null)
+        if (defaultMaterial == null)
         {
             defaultMaterial = renderer.sharedMaterial;
         }

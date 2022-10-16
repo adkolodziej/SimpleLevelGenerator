@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using UnityEngine;
-using static Graph;
 
 public class LevelGenerator : MonoBehaviour
 {
@@ -22,6 +21,8 @@ public class LevelGenerator : MonoBehaviour
         var uniqueNodesInGrap = graph.Item1.GetAllUniqueNodes();
         SetRoomsForGraph(uniqueNodesInGrap);
         CreateRoomsOnGrid(uniqueNodesInGrap, gridGenerator.Cells);
+        CreateEdgesForRooms(uniqueNodesInGrap, gridGenerator.Cells);
+        //BFS.RunBFS();
         int x = 0;
     }
 
@@ -31,24 +32,41 @@ public class LevelGenerator : MonoBehaviour
         {
             if (node.neighbourIds.Count <= 4)
             {
-                node.room = smallRoom;
+                node.room = new Room(smallRoom);
             }
-            if (node.neighbourIds.Count <= 8)
+            else if (node.neighbourIds.Count <= 8)
             {
-                node.room = mediumRoom;
+                node.room = new Room(mediumRoom);
             }
-            if (node.neighbourIds.Count <= 12)
+            else if (node.neighbourIds.Count <= 12)
             {
-                node.room = bigRoom;
+                node.room = new Room(bigRoom);
             }
         }
     }
 
     private void CreateRoomsOnGrid(List<Node> nodes, List<Cell> cells)
     {
-        foreach(var node in nodes)
+        foreach (var node in nodes)
         {
             node.room.CreateRoomOnGrid(cells, gridGenerator.SideSize);
         }
+    }
+
+    private void CreateEdgesForRooms(List<Node> nodes, List<Cell> cells)
+    {
+        var paths = new List<Path>();
+        var path = new Path();
+        foreach (var node in nodes)
+        {
+            foreach (var neighbour in node.neighbourIds)
+            {
+                var neighbourCell = nodes.Find(x => x.nodeId == neighbour);
+                path.FindPath(node, neighbourCell, cells, gridGenerator.SideSize);
+                paths.Add(path);
+                path = new Path();
+            }
+        }
+        int x = 0;
     }
 }
