@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Cell : MonoBehaviour
 {
+    public static int pathMaterialIterator = 0;
+
     [SerializeField]
     private GameObject cube;
     [SerializeField]
@@ -11,7 +13,7 @@ public class Cell : MonoBehaviour
     [SerializeField]
     private Material doorMaterial;
     [SerializeField]
-    private Material pathMaterial;
+    private Material[] pathMaterial;
     [SerializeField]
     private MeshRenderer renderer;
     [SerializeField]
@@ -64,7 +66,7 @@ public class Cell : MonoBehaviour
 
     public void TurnPath()
     {
-        renderer.sharedMaterial = pathMaterial;
+        renderer.sharedMaterial = pathMaterial[pathMaterialIterator];
     }
 
     public void HideCell()

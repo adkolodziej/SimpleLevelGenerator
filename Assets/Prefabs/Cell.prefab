@@ -48,7 +48,33 @@ MonoBehaviour:
   cube: {fileID: 4502785928684564867}
   roomMaterial: {fileID: 2100000, guid: 7fd0c4b37079c8b4e9350e61f20f7b90, type: 2}
   doorMaterial: {fileID: 2100000, guid: 06ac304decd395e45bed1c419107fdd8, type: 2}
-  pathMaterial: {fileID: 2100000, guid: af7f746457ab9504fb8113b6bdb7d0c6, type: 2}
+  pathMaterial:
+  - {fileID: 2100000, guid: df99b1acb12b5924fb7a57e6fbf8306d, type: 2}
+  - {fileID: 2100000, guid: e91854b9aaf341342a2e9e1fb84bc0f5, type: 2}
+  - {fileID: 2100000, guid: 2c2484e60cd56dd498ae54987bc67223, type: 2}
+  - {fileID: 2100000, guid: f757582e246c05549834491a1f4b4bf8, type: 2}
+  - {fileID: 2100000, guid: e5e4f3e8ef676a74384b988d56d40f53, type: 2}
+  - {fileID: 2100000, guid: 1da2d5416b84a05498851f87eeabaed7, type: 2}
+  - {fileID: 2100000, guid: 1dd9a04c24c92504d8167bc643c018cf, type: 2}
+  - {fileID: 2100000, guid: 330a077cfeecc9040978172af2bd06f1, type: 2}
+  - {fileID: 2100000, guid: 4b458a2006e1593418583c8deec8027f, type: 2}
+  - {fileID: 2100000, guid: 80e8d0164ebb23740b6cc95fb79351fc, type: 2}
+  - {fileID: 2100000, guid: 8d7939d94bc0a484b9c835f0584625ea, type: 2}
+  - {fileID: 2100000, guid: 218447efad2397e46bd6a53f98f6d735, type: 2}
+  - {fileID: 2100000, guid: dee8246fb30c1a348ae792a286ad57ab, type: 2}
+  - {fileID: 2100000, guid: 193c32f8832fa2348b49e1a4c3582c72, type: 2}
+  - {fileID: 2100000, guid: 9eb3ff58ec474e543a730c11e69f288c, type: 2}
+  - {fileID: 2100000, guid: d90deb775ab950e4bb04f40f929c8771, type: 2}
+  - {fileID: 2100000, guid: 44df1b9e4c758b34a8371a4b23032ebb, type: 2}
+  - {fileID: 2100000, guid: 034c07c2eec6a1a4bbc61693caa6d6f8, type: 2}
+  - {fileID: 2100000, guid: f764685abadffe347b0d0d9ba06126a5, type: 2}
+  - {fileID: 2100000, guid: 5b448859c21c8e040b3656dd08c7f6ac, type: 2}
+  - {fileID: 2100000, guid: 4b5ea1131a400c24480f597b01dd4efe, type: 2}
+  - {fileID: 2100000, guid: dcfd593a198f21e4aaff4ffb483b1df0, type: 2}
+  - {fileID: 2100000, guid: ab53fb7eccf798a499d964237bd9a0cd, type: 2}
+  - {fileID: 2100000, guid: 02421e6d363fd5a4883d23d744eab644, type: 2}
+  - {fileID: 2100000, guid: 23ea192f515b2c14792e7304de5680bd, type: 2}
+  - {fileID: 2100000, guid: 8a5ad0f2ae1e4ed4dbbf00f6e2c15039, type: 2}
   renderer: {fileID: 438048962907133958}
   cellType: 0
   x: 0

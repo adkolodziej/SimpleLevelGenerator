@@ -16,6 +16,10 @@ public class Path : MonoBehaviour
     {
         var doors = GetDoorCells(startNode, endNode);
         List<(int start, int end)> ps = FindPossibleEdges(doors.startCell, doors.endCell, cells, sideSize);
+        if(ps == null)
+        {
+            return;
+        }
         pathIds = BFS.RunBFS(ps, doors.startCell, doors.endCell);
         for (int i = 0; i < pathIds.Count; i++)
         {
@@ -25,11 +29,16 @@ public class Path : MonoBehaviour
             pathCells.Add(cell);
         }
         length = pathCells.Count;
+        Cell.pathMaterialIterator++;
     }
 
     private List<(int start, int end)> FindPossibleEdges(int startCell, int endCell, List<Cell> cells, int sideSize)
     {
         List<(int start, int end)> ps = new List<(int start, int end)>();
+        if(startCell == -1 || endCell== -1)
+        {
+            return null;
+        }
         var cell = cells.Find(c => c.Id == startCell);
         cell.CellType = CellType.Empty;
         cell = cells.Find(c => c.Id == endCell);
