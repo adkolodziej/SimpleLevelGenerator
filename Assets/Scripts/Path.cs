@@ -7,7 +7,7 @@ public class Path : MonoBehaviour
     private int length;
     private List<Cell> pathCells = new List<Cell>();
     private List<int?> pathIds;
-    private (Cell start, Cell end) connectedCells;
+    public (int start, int end) connectedCells;
 
     int[] dx = { -1, 1, 0, 0 };
     int[] dy = { 0, 0, 1, -1 };
@@ -16,7 +16,7 @@ public class Path : MonoBehaviour
     {
         var doors = GetDoorCells(startNode, endNode);
         List<(int start, int end)> ps = FindPossibleEdges(doors.startCell, doors.endCell, cells, sideSize);
-        if(ps == null)
+        if (ps == null)
         {
             return;
         }
@@ -28,6 +28,11 @@ public class Path : MonoBehaviour
             cell.TurnPath();
             pathCells.Add(cell);
         }
+        if(pathCells.Count > 0)
+        {
+            connectedCells.start = pathCells[0].Id;
+            connectedCells.end = pathCells[pathCells.Count - 1].Id;
+        }
         length = pathCells.Count;
         Cell.pathMaterialIterator++;
     }
@@ -35,7 +40,7 @@ public class Path : MonoBehaviour
     private List<(int start, int end)> FindPossibleEdges(int startCell, int endCell, List<Cell> cells, int sideSize)
     {
         List<(int start, int end)> ps = new List<(int start, int end)>();
-        if(startCell == -1 || endCell== -1)
+        if (startCell == -1 || endCell == -1)
         {
             return null;
         }
@@ -73,5 +78,17 @@ public class Path : MonoBehaviour
         endCell = endNode.room.GetFirstFreeDoor();
 
         return (startCell, endCell);
+    }
+    public bool IsItThisPath(int startCellId, int endCellId)
+    {
+        if (connectedCells.start == startCellId && connectedCells.end == endCellId)
+        {
+            return true;
+        }
+        if(connectedCells.start == endCellId && connectedCells.end == startCellId)
+        {
+            return true;
+        }
+        return false;
     }
 }

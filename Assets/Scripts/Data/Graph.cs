@@ -44,7 +44,6 @@ public class Graph
     {
         var uniqueNodes = new List<Node>();
         uniqueNodes.AddRange(nodes);
-
         foreach (var node in nodes)
         {
             foreach (var neighbour in node.neighbourIds)
@@ -58,7 +57,6 @@ public class Graph
                 }
             }
         }
-
         foreach (var uniqueNode in uniqueNodes)
         {
             foreach (var node in nodes)
@@ -72,7 +70,6 @@ public class Graph
                 }
             }
         }
-
         return uniqueNodes;
     }
 

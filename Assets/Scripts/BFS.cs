@@ -37,9 +37,9 @@ public class BFS
      * @return An array of nodes indexes of the shortest path from 'start' to 'end'. If 'start' and
      *     'end' are not connected then an empty array is returned.
      */
-    public List<int?> reconstructPath(int start, int end)
+    public List<int?> ReconstructPath(int start, int end)
     {
-        bfs(start);
+        RunBFS(start);
         List<int?> path = new List<int?>();
         for (int? at = end; at != null; at = prev[(int)at])
         {
@@ -55,7 +55,7 @@ public class BFS
     }
 
     // Perform a breadth first search on a graph a starting node 'start'.
-    private void bfs(int start)
+    private void RunBFS(int start)
     {
         prev = new int?[n];
         bool[] visited = new bool[n];
@@ -131,7 +131,7 @@ public class BFS
 
         BFS solver;
         solver = new BFS(graph);
-        var paht = solver.reconstructPath(start, end);
-        return solver.reconstructPath(start, end);
+        var paht = solver.ReconstructPath(start, end);
+        return solver.ReconstructPath(start, end);
     }
 }

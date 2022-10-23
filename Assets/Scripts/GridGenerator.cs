@@ -15,7 +15,7 @@ public class GridGenerator : MonoBehaviour
     public List<Cell> Cells => cells;
 
     [ContextMenu("GenerateGrid")]
-    private void GenerateGrid()
+    public void GenerateGrid()
     {
         for (int i = 0; i < sideSize; i++)
         {

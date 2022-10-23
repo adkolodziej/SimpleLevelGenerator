@@ -16,14 +16,13 @@ public class LevelGenerator : MonoBehaviour
 
     private void Start()
     {
+        gridGenerator.GenerateGrid();
         dataController.CreateGraphs();
         var graph = dataController.GetSmallestGraph();
         var uniqueNodesInGrap = graph.Item1.GetAllUniqueNodes();
         SetRoomsForGraph(uniqueNodesInGrap);
         CreateRoomsOnGrid(uniqueNodesInGrap, gridGenerator.Cells);
         CreateEdgesForRooms(uniqueNodesInGrap, gridGenerator.Cells);
-        //BFS.RunBFS();
-        int x = 0;
     }
 
     private void SetRoomsForGraph(List<Node> nodes)
@@ -60,13 +59,23 @@ public class LevelGenerator : MonoBehaviour
         foreach (var node in nodes)
         {
             foreach (var neighbour in node.neighbourIds)
-            {
+            {                
                 var neighbourCell = nodes.Find(x => x.nodeId == neighbour);
-                path.FindPath(node, neighbourCell, cells, gridGenerator.SideSize);
-                paths.Add(path);
-                path = new Path();
+                bool doesPathExist = false;
+                foreach (var p in paths)
+                {
+                    if (p.IsItThisPath(node.nodeId, neighbourCell.nodeId))
+                    {
+                        doesPathExist = true;
+                    }
+                }
+                if (!doesPathExist)
+                {
+                    path.FindPath(node, neighbourCell, cells, gridGenerator.SideSize);
+                    paths.Add(path);
+                    path = new Path();
+                }
             }
         }
-        int x = 0;
     }
 }
