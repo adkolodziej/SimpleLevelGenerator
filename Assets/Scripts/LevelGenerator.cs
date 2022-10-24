@@ -14,15 +14,67 @@ public class LevelGenerator : MonoBehaviour
     [SerializeField]
     private Room bigRoom;
 
+    private bool isCreating = false;
+
     private void Start()
     {
-        gridGenerator.GenerateGrid();
         dataController.CreateGraphs();
+        GenerateSmall();
+    }
+
+    private void Update()
+    {
+        if (!isCreating)
+        {
+            if (Input.GetKeyDown(KeyCode.Q))
+            {
+                GenerateSmall();
+            }
+            if (Input.GetKeyDown(KeyCode.W))
+            {
+                GenerateBig();
+            }
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                GenerateRandom();
+            }
+        }
+    }
+
+    private void GenerateSmall()
+    {
+        isCreating = true;
+        gridGenerator.GenerateGrid();
         var graph = dataController.GetSmallestGraph();
         var uniqueNodesInGrap = graph.Item1.GetAllUniqueNodes();
         SetRoomsForGraph(uniqueNodesInGrap);
         CreateRoomsOnGrid(uniqueNodesInGrap, gridGenerator.Cells);
         CreateEdgesForRooms(uniqueNodesInGrap, gridGenerator.Cells);
+        isCreating = false;
+    }
+
+    private void GenerateBig()
+    {
+        isCreating = true;
+        gridGenerator.GenerateGrid();
+        var graph = dataController.GetBiggestGraph();
+        var uniqueNodesInGrap = graph.Item1.GetAllUniqueNodes();
+        SetRoomsForGraph(uniqueNodesInGrap);
+        CreateRoomsOnGrid(uniqueNodesInGrap, gridGenerator.Cells);
+        CreateEdgesForRooms(uniqueNodesInGrap, gridGenerator.Cells);
+        isCreating = false;
+    }
+
+    private void GenerateRandom()
+    {
+        isCreating = true;
+        gridGenerator.GenerateGrid();
+        var graph = dataController.GetRandomGraph();
+        var uniqueNodesInGrap = graph.Item1.GetAllUniqueNodes();
+        SetRoomsForGraph(uniqueNodesInGrap);
+        CreateRoomsOnGrid(uniqueNodesInGrap, gridGenerator.Cells);
+        CreateEdgesForRooms(uniqueNodesInGrap, gridGenerator.Cells);
+        isCreating = false;
     }
 
     private void SetRoomsForGraph(List<Node> nodes)

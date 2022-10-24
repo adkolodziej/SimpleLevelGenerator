@@ -17,6 +17,7 @@ public class GridGenerator : MonoBehaviour
     [ContextMenu("GenerateGrid")]
     public void GenerateGrid()
     {
+        DestroyGrid();
         for (int i = 0; i < sideSize; i++)
         {
             for (int j = 0; j < sideSize; j++)
