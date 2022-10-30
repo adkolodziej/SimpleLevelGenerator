@@ -13,13 +13,15 @@ public class LevelGenerator : MonoBehaviour
     private Room mediumRoom;
     [SerializeField]
     private Room bigRoom;
-
+    [SerializeField]
     private bool isCreating = false;
 
+
+
     private void Start()
-    {
+    {   
         dataController.CreateGraphs();
-        GenerateSmall();
+        GenerateRandom();
     }
 
     private void Update()
@@ -43,10 +45,12 @@ public class LevelGenerator : MonoBehaviour
 
     private void GenerateSmall()
     {
+        Cell.pathMaterialIterator = 0;
         isCreating = true;
         gridGenerator.GenerateGrid();
-        var graph = dataController.GetSmallestGraph();
+        var graph = dataController.GetSmallestGraph();        
         var uniqueNodesInGrap = graph.Item1.GetAllUniqueNodes();
+        Debug.LogError($"{uniqueNodesInGrap.Count}");
         SetRoomsForGraph(uniqueNodesInGrap);
         CreateRoomsOnGrid(uniqueNodesInGrap, gridGenerator.Cells);
         CreateEdgesForRooms(uniqueNodesInGrap, gridGenerator.Cells);
@@ -55,10 +59,12 @@ public class LevelGenerator : MonoBehaviour
 
     private void GenerateBig()
     {
+        Cell.pathMaterialIterator = 0;
         isCreating = true;
         gridGenerator.GenerateGrid();
         var graph = dataController.GetBiggestGraph();
         var uniqueNodesInGrap = graph.Item1.GetAllUniqueNodes();
+        Debug.LogError($"{uniqueNodesInGrap.Count}");
         SetRoomsForGraph(uniqueNodesInGrap);
         CreateRoomsOnGrid(uniqueNodesInGrap, gridGenerator.Cells);
         CreateEdgesForRooms(uniqueNodesInGrap, gridGenerator.Cells);
@@ -67,10 +73,12 @@ public class LevelGenerator : MonoBehaviour
 
     private void GenerateRandom()
     {
+        Cell.pathMaterialIterator = 0;
         isCreating = true;
         gridGenerator.GenerateGrid();
         var graph = dataController.GetRandomGraph();
         var uniqueNodesInGrap = graph.Item1.GetAllUniqueNodes();
+        Debug.LogError($"{uniqueNodesInGrap.Count}");
         SetRoomsForGraph(uniqueNodesInGrap);
         CreateRoomsOnGrid(uniqueNodesInGrap, gridGenerator.Cells);
         CreateEdgesForRooms(uniqueNodesInGrap, gridGenerator.Cells);

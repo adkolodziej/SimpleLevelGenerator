@@ -29,7 +29,10 @@ public class GraphList : MonoBehaviour
                 smallestGraph = graph;
             }
         }
-        return (smallestGraph, GetGraphNodeCount(smallestGraph));
+
+        var smallestGraphs = graphs.FindAll(x => GetGraphNodeCount(x) == GetGraphNodeCount(smallestGraph));
+
+        return (smallestGraphs[Random.Range(0, smallestGraphs.Count)], GetGraphNodeCount(smallestGraph));
     }
 
     public (Graph, int) GetBiggestGraph()
@@ -46,7 +49,11 @@ public class GraphList : MonoBehaviour
                 biggestGraph = graph;
             }
         }
-        return (biggestGraph, GetGraphNodeCount(biggestGraph));
+
+
+        var biggestGraphs = graphs.FindAll(x => GetGraphNodeCount(x) == GetGraphNodeCount(biggestGraph));
+
+        return (biggestGraphs[Random.Range(0, biggestGraphs.Count)], GetGraphNodeCount(biggestGraph));
     }
 
     public Graph GetGraphWithNodesCount(int nodesCount)
